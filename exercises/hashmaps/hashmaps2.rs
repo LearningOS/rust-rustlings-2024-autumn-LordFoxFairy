@@ -14,8 +14,6 @@
 // Execute `rustlings hint hashmaps2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::collections::HashMap;
 
 #[derive(Hash, PartialEq, Eq)]
@@ -51,8 +49,16 @@ mod tests {
     fn get_fruit_basket() -> HashMap<Fruit, u32> {
         let mut basket = HashMap::<Fruit, u32>::new();
         basket.insert(Fruit::Apple, 4);
-        basket.insert(Fruit::Mango, 2);
+        basket.insert(Fruit::Banana, 2);
         basket.insert(Fruit::Lychee, 5);
+        basket.insert(Fruit::Mango, 2);
+        basket.insert(Fruit::Pineapple, 3);
+        basket.insert(Fruit::Pineapple, 2);
+        basket.insert(Fruit::Pineapple, 3);
+        basket.insert(Fruit::Pineapple, 5);
+        basket.insert(Fruit::Pineapple, 5);
+        basket.insert(Fruit::Pineapple, 5);
+        basket.insert(Fruit::Pineapple, 5);
 
         basket
     }
