@@ -2,7 +2,6 @@
 	heap
 	This question requires you to implement a binary heap function
 */
-// I AM NOT DONE
 
 use std::cmp::Ord;
 use std::default::Default;
@@ -37,8 +36,26 @@ where
     }
 
     pub fn add(&mut self, value: T) {
-        //TODO
+        // 将新元素添加到堆的末尾
+        self.items.push(value);
+        self.count += 1;
+
+        // 从新添加的元素开始，向上调整堆的结构
+        let mut current_index = self.count; // 当前元素的索引
+
+        while current_index > 1 {
+            let parent_index = current_index / 2; // 计算父节点的索引
+
+            // 如果当前元素小于父节点，交换位置
+            if (self.comparator)(&self.items[current_index], &self.items[parent_index]) {
+                self.items.swap(current_index, parent_index);
+                current_index = parent_index; // 更新当前索引为父节点索引
+            } else {
+                break; // 已满足堆的性质，停止
+            }
+        }
     }
+
 
     fn parent_idx(&self, idx: usize) -> usize {
         idx / 2
@@ -84,9 +101,42 @@ where
     type Item = T;
 
     fn next(&mut self) -> Option<T> {
-        //TODO
-		None
+        if self.is_empty() {
+            return None;
+        }
+
+        // 交换堆顶和最后一个元素，减少计数
+        self.items.swap(1, self.count);
+        self.count -= 1;
+
+        // 移除并返回堆顶元素
+        let top = self.items.pop();
+
+        // 向下调整堆
+        let mut index = 1;
+        while index <= self.count {
+            let smallest = {
+                let left = index * 2;
+                let right = left + 1;
+
+                if right <= self.count && (self.comparator)(&self.items[right], &self.items[left]) {
+                    right
+                } else {
+                    left
+                }
+            };
+
+            if smallest <= self.count && (self.comparator)(&self.items[smallest], &self.items[index]) {
+                self.items.swap(index, smallest);
+                index = smallest;
+            } else {
+                break;
+            }
+        }
+
+        top
     }
+
 }
 
 pub struct MinHeap;
